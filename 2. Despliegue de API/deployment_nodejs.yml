@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-app-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nodejs-app
+  template:
+    metadata:
+      labels:
+        app: nodejs-app
+    spec:
+      containers:
+        - name: nodejs-app
+          image: storres17/api_helados_node:lat
+          ports:
+            - containerPort: 3000
+          volumeMounts:
+            - name: data-volume
+              mountPath: /app/data
+      volumes:
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: nodejs-pv-claim
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: nodejs-service
+spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  selector:
+    app: nodejs-app
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000

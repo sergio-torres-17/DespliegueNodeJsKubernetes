@@ -1,0 +1,15 @@
+version: "2.4"
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:5.7.25
+    volumes: 
+      - ./sql-data/db:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    hostname: SERGIO-BLINK
+    environment:
+      MYSQL_DATABASE: 'icecreamdatabase'
+      MYSQL_USER: 'dev_api_icecream'
+      MYSQL_PASSWORD: 'PrdSys#17'
+      MYSQL_ROOT_PASSWORD: 'Enter#1712'

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: despliegue-api-node
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nodeicecream
+  template:
+    metadata:
+      labels:
+        app: nodejs-ice-cream
+    spec:
+      containers:
+        - name: nodeicecream
+          image: api_node_helados
+          ports:
+            - containerPort: 8080
